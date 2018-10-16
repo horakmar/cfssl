@@ -112,7 +112,7 @@ func main() {
 	}
 	if cert != "" {
 		outs = append(outs, outputFile{
-			Filename: baseName + ".pem",
+			Filename: baseName + ".crt",
 			Contents: cert,
 			Perms:    0664,
 		})
@@ -125,7 +125,7 @@ func main() {
 	}
 	if key != "" {
 		outs = append(outs, outputFile{
-			Filename: baseName + "-key.pem",
+			Filename: baseName + ".key",
 			Contents: key,
 			Perms:    0600,
 		})
@@ -134,7 +134,7 @@ func main() {
 	if contents, ok := input["encrypted_key"]; ok {
 		encKey := contents.(string)
 		outs = append(outs, outputFile{
-			Filename: baseName + "-key.enc",
+			Filename: baseName + ".enckey",
 			Contents: encKey,
 			IsBinary: true,
 			Perms:    0600,
@@ -171,12 +171,12 @@ func main() {
 				os.Exit(1)
 			}
 			outs = append(outs, outputFile{
-				Filename: baseName + "-bundle.pem",
+				Filename: baseName + ".bundle",
 				Contents: certificateBundle + "\n" + rootCertificate,
 				Perms:    0644,
 			})
 			outs = append(outs, outputFile{
-				Filename: baseName + "-root.pem",
+				Filename: baseName + ".rootcrt",
 				Contents: rootCertificate,
 				Perms:    0644,
 			})
@@ -191,7 +191,7 @@ func main() {
 			os.Exit(1)
 		}
 		outs = append(outs, outputFile{
-			Filename: baseName + "-response.der",
+			Filename: baseName + ".der",
 			Contents: string(resp),
 			IsBinary: true,
 			Perms:    0644,
